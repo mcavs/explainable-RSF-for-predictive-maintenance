@@ -1,3 +1,7 @@
+#################################################################
+# SURVLIME 
+#################################################################
+
 survlime_explain <- function(task, split, models) {
   library(survex)
   
@@ -24,3 +28,37 @@ survlime_explain <- function(task, split, models) {
     rsf_lime = rsf_lime
   ))
 }
+
+
+#################################################################
+# SURVSHAP
+#################################################################
+
+survshap_explain <- function(task, split, models) {
+  library(survex)
+
+  cox_explainer <- explain(models$cox_model, 
+                           data = as.data.frame(task$data()), 
+                           y = task$truth(), 
+                           predict_function = predict)
+
+  rsf_explainer <- explain(models$rsf_model, 
+                           data = as.data.frame(task$data()), 
+                           y = task$truth(), 
+                           predict_function = predict)
+
+  observation <- as.data.frame(task$data())[5, , drop = FALSE]
+
+  cox_shap <- predict_parts(cox_explainer, observation, type = "survshap")
+  rsf_shap <- predict_parts(rsf_explainer, observation, type = "survshap")
+
+  plot(cox_shap)
+  plot(rsf_shap)
+
+  return(list(
+    cox_shap = cox_shap,
+    rsf_shap = rsf_shap
+  ))
+}
+
+
