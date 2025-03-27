@@ -62,3 +62,32 @@ survshap_explain <- function(task, split, models) {
 }
 
 
+#################################################################
+# Global Açıklama
+#################################################################
+
+global_explain <- function(task, models) {
+  library(survex)
+  
+  cox_explainer <- explain(models$cox_model,
+                           data = as.data.frame(task$data()),
+                           y = task$truth(),
+                           predict_function = predict)
+  
+  rsf_explainer <- explain(models$rsf_model,
+                           data = as.data.frame(task$data()),
+                           y = task$truth(),
+                           predict_function = predict)
+  
+  cox_parts <- model_parts(cox_explainer)
+  rsf_parts <- model_parts(rsf_explainer)
+  
+  plot(cox_parts)
+  plot(rsf_parts)
+  
+  return(list(
+    cox = cox_parts,
+    rsf = rsf_parts
+  ))
+}
+
