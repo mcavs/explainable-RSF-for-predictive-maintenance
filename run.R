@@ -24,3 +24,9 @@ shap_results <- survshap_explain(surv_task, split_data, models)
 plot(shap_results$cox_shap)
 plot(shap_results$rsf_shap)
 print(shap_results)
+
+
+global_results <- survshap_global(surv_task, split_data, models)
+print(global_results)
+plot(global_results$cox_global)
+plot(global_results$rsf_global)
