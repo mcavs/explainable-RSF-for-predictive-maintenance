@@ -21,3 +21,11 @@ library(pracma)
 library(cowplot)
 
 install_learners(c("surv.ranger", "surv.coxph"))
+
+install.packages(c("randomForestSRC", "pracma"))
+
+library(randomForestSRC)
+library(pracma)
+
+install.packages("cowplot")
+library(cowplot)
