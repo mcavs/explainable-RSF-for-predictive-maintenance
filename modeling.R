@@ -1,5 +1,7 @@
 train_models <- function(task, split) {
   
+  set.seed(123)
+  
   # Cox Model ################################################
   cox_model <- lrn("surv.coxph", id = "coxph")
   cox_model$train(task, row_ids = split$train)
