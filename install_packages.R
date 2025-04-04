@@ -29,3 +29,7 @@ library(pracma)
 
 install.packages("cowplot")
 library(cowplot)
+
+
+install.packages("survAUC")
+library(survAUC)
